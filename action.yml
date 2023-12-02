@@ -1,0 +1,50 @@
+name: "AMD Python VirtualEnv"
+description: "Composite action for the AMD Take Home Exercise"
+inputs:
+  python-version: # id of input
+    description: "The version of Python to install"
+    required: true
+    default: "3.11"
+  requirements-file:
+    description: "The requirements file to install"
+    required: false
+  constraints-file:
+    description: "The constraint file to install"
+    required: false
+  requirements:
+    description: "The requirements to install, will eventually be concatenated to the requirements file"
+    required: false
+  constraints:
+    description: "The constraints for the packages, will eventually be concatenated to the constraint file"
+    required: false
+  run:
+    description: "The command(s) to run"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
+    - if: ${{ inputs.requirements-file }}
+      run: cat ${{ inputs.requirements-file }} >> ${{ runner.temp }}/requirements.txt
+      shell: bash
+    - if: ${{ inputs.requirements }}
+      run: echo ${{ inputs.requirements }} >> ${{ runner.temp }}/requirements.txt
+      shell: bash
+    - if: ${{ inputs.constraints-file }}
+      run: cat ${{ inputs.constraints-file }} >> ${{ runner.temp }}/constraints.txt
+      shell: bash
+    - if: ${{ inputs.constraints }}
+      run: echo ${{ inputs.constraints }} >> ${{ runner.temp }}/constraints.txt
+      shell: bash
+    - run: echo "" >> ${{ runner.temp }}/constraints.txt
+      shell: bash
+    - if: ${{ inputs.requirements-file }} || ${{ inputs.requirements }}
+      run: pip install -r ${{ runner.temp }}/requirements.txt -c ${{ runner.temp }}/constraints.txt
+      shell: bash
+    - run: ${{ inputs.run }}
+      shell: bash
