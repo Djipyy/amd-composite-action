@@ -33,13 +33,13 @@ runs:
       run: cat ${{ inputs.requirements-file }} >> ${{ runner.temp }}/requirements.txt
       shell: bash
     - if: ${{ inputs.requirements }}
-      run: echo ${{ inputs.requirements }} | tee -a ${{ runner.temp }}/requirements.txt
+      run: "echo ${{ inputs.requirements }} | tee -a ${{ runner.temp }}/requirements.txt"
       shell: bash
     - if: ${{ inputs.constraints-file }}
       run: cat ${{ inputs.constraints-file }} >> ${{ runner.temp }}/constraints.txt
       shell: bash
     - if: ${{ inputs.constraints }}
-      run: echo ${{ inputs.constraints }} | tee -a ${{ runner.temp }}/constraints.txt
+      run: "echo ${{ inputs.constraints }} | tee -a ${{ runner.temp }}/constraints.txt"
       shell: bash
     - run: echo "" >> ${{ runner.temp }}/constraints.txt
       shell: bash
