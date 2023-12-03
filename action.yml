@@ -1,7 +1,7 @@
 name: "AMD Python VirtualEnv"
 description: "Composite action for the AMD Take Home Exercise"
 inputs:
-  python-version: # id of input
+  python-version:
     description: "The version of Python to install"
     required: true
     default: "3.11"
@@ -23,8 +23,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
       with:
