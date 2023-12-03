@@ -3,7 +3,7 @@ This is a composite action that can be used to setup a Python "virtual
 environment" by providing requirements and constraints. It is then possible to run a command in it.
 
 ## Inputs
-- python-version : Required
+- python-version : Optional
 - requirements : Optional
 - constraints : Optional
 - requirements-file : Optional
