@@ -43,6 +43,10 @@ runs:
       shell: bash
     - run: echo "" >> ${{ runner.temp }}/constraints.txt
       shell: bash
+    - run: cat ${{ runner.temp }}/constraints.txt
+      shell: bash
+    - run: cat ${{ runner.temp }}/requirements.txt
+      shell: bash
     - if: ${{ inputs.requirements-file }} || ${{ inputs.requirements }}
       run: pip install -r ${{ runner.temp }}/requirements.txt -c ${{ runner.temp }}/constraints.txt
       shell: bash
